@@ -14,9 +14,8 @@ A simple to-do list application for Android, built with modern Android developme
 ## 📸 Screenshots
 
 <!-- Add your screenshots here -->
-<p align="center">
-  <img src="screenshots/screenshot1.png" width="250"/>
-  <img src="screenshots/screenshot2.png" width="250"/>
+<p>
+  <img width="220" height="600" alt="screenshot_1" src="https://github.com/user-attachments/assets/0bce6897-4c46-43e3-9db2-3f34bf5a7bdd" />
 </p>
 
 ## 🛠️ Tech Stack & Tools
