@@ -15,7 +15,6 @@ import com.tecruz.todolistapp.ui.todo_list.TodoListScreen
 import com.tecruz.todolistapp.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
