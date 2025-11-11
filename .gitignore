@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.kotlin/
+
+# User-specific Android Studio files
+/.idea/androidTestResultsUserPreferences.xml
+/.idea/compiler.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/deviceManager.xml
+/.idea/misc.xml
+/.idea/vcs.xml
