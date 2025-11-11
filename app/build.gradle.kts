@@ -31,6 +31,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            enableAndroidTestCoverage = true
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -76,7 +79,7 @@ dependencies {
 }
 
 ktlint {
-    version.set(libs.versions.ktlint.get())
+    version.set(libs.versions.ktlintPlugin.get())
     verbose.set(true)
     android.set(true)
     outputToConsole.set(true)
