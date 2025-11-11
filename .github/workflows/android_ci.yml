@@ -54,7 +54,7 @@ jobs:
           script: ./gradlew connectedCheck
 
       - name: Generate coverage report
-        run: ./gradlew koverReport
+        run: ./gradlew koverXmlReport
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
