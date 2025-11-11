@@ -1,6 +1,7 @@
 # TodoListApp
 
 [![Android CI](https://github.com/tecruz/TodoListApp/actions/workflows/android_ci.yml/badge.svg)](https://github.com/tecruz/TodoListApp/actions/workflows/android_ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tecruz_TodoListApp&metric=alert_status&token=40163cb5319e07acbc67a65d740092571e7c2dfc)](https://sonarcloud.io/summary/new_code?id=tecruz_TodoListApp)
 [![codecov](https://codecov.io/gh/tecruz/TodoListApp/graph/badge.svg?token=your_codecov_token)](https://codecov.io/gh/tecruz/TodoListApp)
 
 A simple to-do list application for Android, built with modern Android development tools and best practices.
