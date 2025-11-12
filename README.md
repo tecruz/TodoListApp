@@ -28,8 +28,8 @@ A simple to-do list application for Android, built with modern Android developme
 *   **Database:** [Room](https://developer.android.com/training/data-storage/room)
 *   **Static Analysis:** [Detekt](https://detekt.dev/)
 *   **Code Style:** [KtLint](https://ktlint.github.io/)
-*   **Test Coverage:** [Kover](https://github.com/Kotlin/kotlinx-kover)
-*   **CI/CD:** [GitHub Actions](https://github.com/features/actions)
+*   **Test Coverage:** [JaCoCo](https://www.eclemma.org/jacoco/)
+*   **CI/CD:** [GitHub Actions](https://github.com/features/actions) with AVD Caching
 
 ## 🚀 Setup
 
@@ -67,8 +67,8 @@ This project is equipped with several tools to ensure code quality. You can run 
     ./gradlew connectedCheck
     ```
 
-*   **Code Coverage Report:**
+*   **Code Coverage Report (Unit & Instrumented):**
     ```bash
-    ./gradlew koverHtmlReport
+    ./gradlew jacocoTestReport
     ```
-    The report will be available at `app/build/reports/kover/index.html`.
+    The report will be available at `app/build/reports/jacoco/jacocoTestReport/html/index.html`.
