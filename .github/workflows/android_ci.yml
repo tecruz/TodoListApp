@@ -45,16 +45,13 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Run instrumentation tests
+      - name: Run instrumented tests and generate coverage report
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
           target: google_apis
           arch: x86_64
-          script: ./gradlew connectedCheck
-
-      - name: Generate coverage report
-        run: ./gradlew koverXmlReport
+          script: ./gradlew connectedCheck jacocoTestReport
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5

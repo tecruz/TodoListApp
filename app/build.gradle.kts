@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.kover)
+    id("jacoco")
 }
 
 android {
@@ -32,6 +32,7 @@ android {
             )
         }
         debug {
+            enableUnitTestCoverage = true
             enableAndroidTestCoverage = true
         }
     }
@@ -76,43 +77,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-}
 
-ktlint {
-    version.set(libs.versions.ktlintPlugin.get())
-    verbose.set(true)
-    android.set(true)
-    outputToConsole.set(true)
-    outputColorName.set("RED")
-    ignoreFailures.set(false)
-    reporters {
-        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
-        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
-        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
-    }
+    // Detekt
+    detektPlugins(libs.detekt.formatting)
 }
 
 detekt {
     config.setFrom(files("$projectDir/detekt.yml"))
-    buildUponDefaultConfig = true
-    source.setFrom("src/main/java")
 }
 
-tasks.withType(io.gitlab.arturbosch.detekt.Detekt::class).configureEach {
-    reports {
-        html.required.set(true)
-        xml.required.set(true)
-        txt.required.set(true)
-    }
-}
-
-kover {
-    reports {
-        filters {
-            excludes {
-                classes("com.tecruz.todolistapp.Hilt_*")
-                annotatedBy("*Generated*")
-            }
-        }
-    }
-}
+apply(from = "../jacoco.gradle")
