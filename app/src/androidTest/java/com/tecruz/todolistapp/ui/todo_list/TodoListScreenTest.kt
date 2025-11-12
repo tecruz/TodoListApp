@@ -44,19 +44,22 @@ class TodoListScreenTest {
 
     @Test
     fun deleteTodo_clickUndo_restoresTodo() {
+        // 1. Given a todo item in the repository
+        val todo = Todo(title = "Test Todo", description = "", isDone = false)
         runBlocking {
-            // 1. Given a todo item in the repository
-            val todo = Todo(title = "Test Todo", description = "", isDone = false)
             repository.insertTodo(todo)
-
-            // 2. Delete the todo item from the UI
-            composeRule.onNodeWithContentDescription("Delete").performClick()
-
-            // 3. Click the "Undo" action on the snackbar
-            composeRule.onNodeWithText("Undo").performClick()
-
-            // 4. Verify the todo item is still displayed
-            composeRule.onNodeWithText("Test Todo").assertIsDisplayed()
         }
+
+        // Wait for UI to update with the new item
+        composeRule.onNodeWithText("Test Todo").assertIsDisplayed()
+
+        // 2. Delete the todo item from the UI
+        composeRule.onNodeWithContentDescription("Delete").performClick()
+
+        // 3. Click the "Undo" action on the snackbar
+        composeRule.onNodeWithText("Undo").performClick()
+
+        // 4. Verify the todo item is still displayed
+        composeRule.onNodeWithText("Test Todo").assertIsDisplayed()
     }
 }
