@@ -47,11 +47,16 @@ class TodoE2ETest {
         composeRule.onNodeWithText("Description").performTextInput("Click Description")
         composeRule.onNodeWithContentDescription("Save Todo").performClick()
 
+        // Make sure the UI has settled after navigating back from the save action
+        composeRule.waitForIdle()
+
         // 2. Click on the newly created Todo item
         composeRule.onNodeWithText("Click Me").performClick()
 
-        // 3. Verify that the detail screen is shown with the correct data
-        // The text fields should be populated with the todo's data
+        // 3. Wait for the UI to be idle before making assertions
+        composeRule.waitForIdle()
+
+        // 4. Verify that the detail screen is shown with the correct data
         composeRule.onNodeWithText("Click Me").assertIsDisplayed()
         composeRule.onNodeWithText("Click Description").assertIsDisplayed()
     }
