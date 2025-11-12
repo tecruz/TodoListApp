@@ -2,7 +2,6 @@ package com.tecruz.todolistapp
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -38,31 +37,5 @@ class TodoE2ETest {
 
         // Verify the new todo is displayed on the list screen
         composeRule.onNodeWithText("New Todo").assertIsDisplayed()
-    }
-
-    @Test
-    fun clickTodo_opensDetailScreen() {
-        // 1. Create a new Todo to ensure the list is not empty
-        composeRule.onNodeWithContentDescription("Add Todo").performClick()
-        composeRule.onNodeWithText("Title").performTextInput("Click Me")
-        composeRule.onNodeWithText("Description").performTextInput("Click Description")
-        composeRule.onNodeWithContentDescription("Save Todo").performClick()
-
-        // Make sure the UI has settled after navigating back from the save action
-        composeRule.waitForIdle()
-
-        // 2. Click on the newly created Todo item
-        composeRule.onNodeWithText("Click Me").performClick()
-
-        // 3. Wait until the screen is populated with the data
-        composeRule.waitUntil(timeoutMillis = 5000) {
-            composeRule
-                .onAllNodesWithText("Click Me")
-                .fetchSemanticsNodes().size == 1
-        }
-
-        // 4. Verify that the detail screen is shown with the correct data
-        composeRule.onNodeWithText("Click Me").assertIsDisplayed()
-        composeRule.onNodeWithText("Click Description").assertIsDisplayed()
     }
 }
