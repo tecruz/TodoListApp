@@ -9,6 +9,7 @@ import com.tecruz.todolistapp.util.UiEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -26,6 +27,18 @@ class TodoListViewModelTest {
     fun setUp() {
         repository = FakeTodoRepository()
         viewModel = TodoListViewModel(repository)
+    }
+
+    @Test
+    fun `onEvent OnDeleteTodoClick deletes todo from repository`() = runTest {
+        val todo = Todo(id = 1, title = "Test", description = "", isDone = false)
+        repository.insertTodo(todo)
+
+        viewModel.onEvent(TodoListEvent.OnDeleteTodoClick(todo))
+
+        mainDispatcherRule.testDispatcher.scheduler.advanceUntilIdle()
+
+        assertNull(repository.getTodoById(1))
     }
 
     @Test
