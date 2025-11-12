@@ -38,4 +38,21 @@ class TodoE2ETest {
         // Verify the new todo is displayed on the list screen
         composeRule.onNodeWithText("New Todo").assertIsDisplayed()
     }
+
+    @Test
+    fun clickTodo_opensDetailScreen() {
+        // 1. Create a new Todo to ensure the list is not empty
+        composeRule.onNodeWithContentDescription("Add Todo").performClick()
+        composeRule.onNodeWithText("Title").performTextInput("Click Me")
+        composeRule.onNodeWithText("Description").performTextInput("Click Description")
+        composeRule.onNodeWithContentDescription("Save Todo").performClick()
+
+        // 2. Click on the newly created Todo item
+        composeRule.onNodeWithText("Click Me").performClick()
+
+        // 3. Verify that the detail screen is shown with the correct data
+        // The text fields should be populated with the todo's data
+        composeRule.onNodeWithText("Click Me").assertIsDisplayed()
+        composeRule.onNodeWithText("Click Description").assertIsDisplayed()
+    }
 }
