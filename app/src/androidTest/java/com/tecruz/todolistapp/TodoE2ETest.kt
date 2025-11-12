@@ -2,6 +2,7 @@ package com.tecruz.todolistapp
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -53,8 +54,12 @@ class TodoE2ETest {
         // 2. Click on the newly created Todo item
         composeRule.onNodeWithText("Click Me").performClick()
 
-        // 3. Wait for the UI to be idle before making assertions
-        composeRule.waitForIdle()
+        // 3. Wait until the screen is populated with the data
+        composeRule.waitUntil(timeoutMillis = 5000) {
+            composeRule
+                .onAllNodesWithText("Click Me")
+                .fetchSemanticsNodes().size == 1
+        }
 
         // 4. Verify that the detail screen is shown with the correct data
         composeRule.onNodeWithText("Click Me").assertIsDisplayed()
