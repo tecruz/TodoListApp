@@ -6,12 +6,17 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.tecruz.todolistapp.MainActivity
+import com.tecruz.todolistapp.data.Todo
+import com.tecruz.todolistapp.data.TodoRepository
 import com.tecruz.todolistapp.di.AppModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import javax.inject.Inject
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
@@ -23,9 +28,35 @@ class TodoListScreenTest {
     @get:Rule(order = 1)
     val composeRule = createAndroidComposeRule<MainActivity>()
 
+    @Inject
+    lateinit var repository: TodoRepository
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
+
     @Test
     fun fab_navigatesToAddTodoScreen() {
         composeRule.onNodeWithContentDescription("Add Todo").performClick()
         composeRule.onNodeWithText("Title").assertIsDisplayed()
+    }
+
+    @Test
+    fun deleteTodo_clickUndo_restoresTodo() {
+        runBlocking {
+            // 1. Given a todo item in the repository
+            val todo = Todo(title = "Test Todo", description = "", isDone = false)
+            repository.insertTodo(todo)
+
+            // 2. Delete the todo item from the UI
+            composeRule.onNodeWithContentDescription("Delete").performClick()
+
+            // 3. Click the "Undo" action on the snackbar
+            composeRule.onNodeWithText("Undo").performClick()
+
+            // 4. Verify the todo item is still displayed
+            composeRule.onNodeWithText("Test Todo").assertIsDisplayed()
+        }
     }
 }
