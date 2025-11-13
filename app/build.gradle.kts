@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "com.tecruz.todolistapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tecruz.todolistapp"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
