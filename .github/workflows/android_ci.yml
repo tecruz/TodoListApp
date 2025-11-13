@@ -33,9 +33,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Assemble debug build
-        run: ./gradlew assembleDebug
-
       - name: Run lint
         run: ./gradlew lint
 
