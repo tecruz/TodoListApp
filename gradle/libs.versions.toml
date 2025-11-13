@@ -15,7 +15,7 @@ roomRuntime = "2.8.3"
 turbine = "1.2.1"
 coreTesting = "2.2.0"
 coroutinesTest = "1.10.2"
-detekt = "1.23.6"
+detekt = "1.23.8"
 ktlintPlugin = "14.0.1"
 
 [libraries]
