@@ -6,15 +6,20 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.tecruz.todolistapp.di.AppModule
+import com.tecruz.todolistapp.data.TodoDatabase
+import com.tecruz.todolistapp.di.TestAppModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import javax.inject.Inject
 
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(TestAppModule::class)
 class TodoE2ETest {
 
     @get:Rule(order = 0)
@@ -22,6 +27,21 @@ class TodoE2ETest {
 
     @get:Rule(order = 1)
     val composeRule = createAndroidComposeRule<MainActivity>()
+
+    @Inject
+    lateinit var database: TodoDatabase
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
+
+    @After
+    fun tearDown() {
+        runBlocking {
+            database.clearAllTables()
+        }
+    }
 
     @Test
     fun createTodo_displaysOnList() {
