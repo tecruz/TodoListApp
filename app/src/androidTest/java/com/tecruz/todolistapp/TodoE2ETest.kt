@@ -11,7 +11,7 @@ import com.tecruz.todolistapp.di.TestAppModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -37,10 +37,8 @@ class TodoE2ETest {
     }
 
     @After
-    fun tearDown() {
-        runBlocking {
-            database.clearAllTables()
-        }
+    fun tearDown() = runTest {
+        database.clearAllTables()
     }
 
     @Test

@@ -12,7 +12,7 @@ import com.tecruz.todolistapp.di.AppModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,12 +43,10 @@ class TodoListScreenTest {
     }
 
     @Test
-    fun deleteTodo_clickUndo_restoresTodo() {
+    fun deleteTodo_clickUndo_restoresTodo() = runTest {
         // 1. Given a todo item in the repository
         val todo = Todo(title = "Test Todo", description = "", isDone = false)
-        runBlocking {
-            repository.insertTodo(todo)
-        }
+        repository.insertTodo(todo)
 
         // Wait for UI to update with the new item
         composeRule.onNodeWithText("Test Todo").assertIsDisplayed()
